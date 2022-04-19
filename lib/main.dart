@@ -1,3 +1,5 @@
+import 'package:anicon/screens/home_screen.dart';
+import 'package:anicon/screens/tab_bar_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,20 +14,20 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          foregroundColor: Colors.black,
+        ),
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: Colors.deepPurple,
         ).copyWith(secondary: Colors.yellowAccent),
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('AniCon'),
-          bottomOpacity: 0.0,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          foregroundColor: Colors.black,
-        ),
-        body: const Text('Hola mundo'),
-      ),
+      home: const TabBarScreen(),
+      routes: {
+        HomeScreen.kRouteName: (ctx) => const HomeScreen(),
+        TabBarScreen.kRouteName: (context) => const TabBarScreen(),
+      },
     );
   }
 }
