@@ -10,12 +10,13 @@ class AnimeGrid extends StatelessWidget {
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 6 / 2,
+        childAspectRatio: 1.5 / 2,
       ),
       itemBuilder: (ctx, i) {
         return const AnimeItem(
           id: 1,
-          imageCoverUrl: '',
+          imageCoverUrl:
+              'http://orig03.deviantart.net/cd5c/f/2013/083/c/b/one_piece_cover_61_by_i_sanx-d5z2zrr.jpg',
           title: '',
         ); //Placeholder
       },
