@@ -1,7 +1,7 @@
 class Anime {
   final int id;
-  final String titles;
-  final String descriptions;
+  final Map<String, dynamic> titles;
+  final Map<String, dynamic> descriptions;
   final String startDate;
   final String endDate;
   final int seasonPeriod;

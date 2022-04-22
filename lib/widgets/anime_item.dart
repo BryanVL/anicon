@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class AnimeItem extends StatelessWidget {
   final int id;
   final String imageCoverUrl;
-  final String title;
+  final Map<String, dynamic> title;
 
   const AnimeItem({
     Key? key,
@@ -15,10 +15,13 @@ class AnimeItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String titulo =
+        title['en'] != null ? title['en']! : 'No english title found';
+
     return Column(
       children: [
         Image.network(imageCoverUrl),
-        Text(title),
+        Text(titulo),
       ],
     );
   }

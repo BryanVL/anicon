@@ -10,7 +10,7 @@ const kToken =
 final animesProvider = FutureProvider<List<Anime>>(
   (ref) async {
     List<Anime> result = [];
-    final url = Uri.https('api.aniapi.com', '/v1/anime/1');
+    final url = Uri.https('api.aniapi.com', '/v1/anime', {'year': '2022'});
 
     final content = json.decode(
       (await http.get(
@@ -22,49 +22,33 @@ final animesProvider = FutureProvider<List<Anime>>(
           .body,
     ) as Map<String, dynamic>;
 
-    /*content['data'].map(
-      (idAnime, dataAnime) {
+    final List<dynamic> data = content['data']['documents'];
+    print(data.length);
+
+    data.map(
+      (anime) {
         result.add(
           Anime(
-            dataAnime['mal_id'],
-            dataAnime['titles'],
-            dataAnime['descriptions'],
-            dataAnime['start_date'],
-            dataAnime['end_date'],
-            dataAnime['season_period'],
-            dataAnime['season_year'],
-            dataAnime['episodes_count'],
-            dataAnime['cover_image'],
-            dataAnime['genres'],
-            (dataAnime['sagas'] as List<String>).length,
-            dataAnime['score'],
+            anime['id'],
+            anime['titles'],
+            anime['descriptions'],
+            anime['start_date'],
+            anime['end_date'],
+            anime['season_period'],
+            anime['season_year'],
+            anime['episodes_count'],
+            anime['cover_image'],
+            anime['genres'],
+            anime['sagas'] != null
+                ? (anime['sagas'] as List<dynamic>).length
+                : 1,
+            anime['score'],
           ),
         );
       },
-    );*/
+    ).toList();
 
-    /*content.forEach(
-      (idAnime, dataAnime) {
-        result.add(
-          Anime(
-            dataAnime["data"]['mal_id'],
-            dataAnime["data"]['titles'],
-            dataAnime["data"]['descriptions'],
-            dataAnime["data"]['start_date'],
-            dataAnime["data"]['end_date'],
-            dataAnime["data"]['season_period'],
-            dataAnime["data"]['season_year'],
-            dataAnime["data"]['episodes_count'],
-            dataAnime["data"]['cover_image'],
-            dataAnime["data"]['genres'],
-            (dataAnime["data"]['sagas'] as List<String>).length,
-            dataAnime["data"]['score'],
-          ),
-        );
-      },
-    );*/
-
-    result.add(
+    /*result.add(
       Anime(
         content["data"]['mal_id'],
         content["data"]['titles']['en'],
@@ -79,7 +63,7 @@ final animesProvider = FutureProvider<List<Anime>>(
         (content["data"]['sagas'] as List<dynamic>).length,
         content["data"]['score'],
       ),
-    );
+    );*/
 
     return result;
   },
