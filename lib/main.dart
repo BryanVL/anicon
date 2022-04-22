@@ -26,7 +26,9 @@ class MyApp extends StatelessWidget {
         ),
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: Colors.deepPurple,
-        ).copyWith(secondary: Colors.yellowAccent),
+          backgroundColor: Colors.purple,
+          accentColor: Colors.deepOrange,
+        ).copyWith(secondary: Colors.amberAccent),
       ),
       home: const TabBarScreen(),
       routes: {
