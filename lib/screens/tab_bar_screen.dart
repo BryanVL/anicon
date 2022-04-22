@@ -19,13 +19,13 @@ class _TabBarScreenState extends State<TabBarScreen> {
   void initState() {
     super.initState();
     _pages = [
-      {'page': const FavoritesScreen(), 'title': 'Favoritos'},
-      {'page': const HomeScreen(), 'title': 'Recientes'},
       {'page': const LibraryScreen(), 'title': 'Biblioteca'},
+      {'page': const HomeScreen(), 'title': 'Recientes'},
+      {'page': const FavoritesScreen(), 'title': 'Favoritos'},
     ];
   }
 
-  int _selectedPageIndex = 0;
+  int _selectedPageIndex = 1;
 
   void _selectPage(int index) {
     setState(() {
@@ -46,16 +46,16 @@ class _TabBarScreenState extends State<TabBarScreen> {
         selectedFontSize: 16,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.star),
-            label: 'Favoritos',
+            icon: Icon(Icons.library_books),
+            label: 'Biblioteca',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Recientes',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.library_books),
-            label: 'Biblioteca',
+            icon: Icon(Icons.star),
+            label: 'Favoritos',
           ),
         ],
       ),

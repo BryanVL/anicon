@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-//Este widget son las cajitas que salen en la pagina inicial
+//this widget creates the "boxes" of the initial page
 class AnimeItem extends StatelessWidget {
   final int id;
   final String imageCoverUrl;

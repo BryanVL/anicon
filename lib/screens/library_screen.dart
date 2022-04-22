@@ -5,8 +5,16 @@ class LibraryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Text("Esta es la ventana de biblioteca"),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Biblioteca"),
+      ),
+      body: Column(
+        children: [
+          const Text("Esta es la ventana de biblioteca"),
+          ElevatedButton(onPressed: () {}, child: const Text("Boton"))
+        ],
+      ),
     );
   }
 }

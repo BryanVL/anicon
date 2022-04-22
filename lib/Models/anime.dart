@@ -1,14 +1,14 @@
 class Anime {
   final int id;
-  final List<String> titles;
-  final List<String> descriptions;
-  final DateTime startDate;
-  final DateTime endDate;
+  final String titles;
+  final String descriptions;
+  final String startDate;
+  final String endDate;
   final int seasonPeriod;
   final int seasonYear;
   final int numEpisodes;
   final String coverImageUrl;
-  final List<String> genres;
+  final List<dynamic> genres;
   final int numSeasons;
   final int score;
 
@@ -26,4 +26,6 @@ class Anime {
     this.numSeasons,
     this.score,
   );
+
+  //Anime.fromJson(Map<String, dynamic> json) : id = json['id'];
 }
