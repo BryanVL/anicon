@@ -1,3 +1,4 @@
+import 'package:anicon/screens/anime_screen.dart';
 import 'package:anicon/screens/home_screen.dart';
 import 'package:anicon/screens/tab_bar_screen.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
       routes: {
         HomeScreen.kRouteName: (ctx) => const HomeScreen(),
         TabBarScreen.kRouteName: (context) => const TabBarScreen(),
+        AnimeScreen.kRouteName: (context) => const AnimeScreen(),
       },
     );
   }

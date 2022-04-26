@@ -23,7 +23,6 @@ final animesProvider = FutureProvider<List<Anime>>(
     ) as Map<String, dynamic>;
 
     final List<dynamic> data = content['data']['documents'];
-    print(data.length);
 
     data.map(
       (anime) {
@@ -38,6 +37,7 @@ final animesProvider = FutureProvider<List<Anime>>(
             anime['season_year'],
             anime['episodes_count'],
             anime['cover_image'],
+            anime['banner_image'],
             anime['genres'],
             anime['sagas'] != null
                 ? (anime['sagas'] as List<dynamic>).length

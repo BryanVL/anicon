@@ -4,7 +4,7 @@ import 'package:anicon/widgets/anime_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-//this class is a grid of animeItems
+//this class is a grid of animeItems with slivers
 class AnimeGridSliver extends ConsumerWidget {
   const AnimeGridSliver({Key? key}) : super(key: key);
 
@@ -38,12 +38,12 @@ class AnimeGridSliver extends ConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
-              Icon(Icons.signal_wifi_connected_no_internet_4, size: 100),
+            children: [
+              const Icon(Icons.signal_wifi_connected_no_internet_4, size: 100),
               Text(
-                "No tienes conexión a internet o hubo un problema al conectarse al servidor",
+                "No tienes conexión a internet o hubo un problema al conectarse al servidor, Mensaje de error: $err",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 20),
               ),
             ],
           ),

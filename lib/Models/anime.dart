@@ -8,6 +8,7 @@ class Anime {
   final int seasonYear;
   final int numEpisodes;
   final String coverImageUrl;
+  final String? bannerImage;
   final List<dynamic> genres;
   final int numSeasons;
   final int score;
@@ -22,10 +23,26 @@ class Anime {
     this.seasonYear,
     this.numEpisodes,
     this.coverImageUrl,
+    this.bannerImage,
     this.genres,
     this.numSeasons,
     this.score,
   );
 
   //Anime.fromJson(Map<String, dynamic> json) : id = json['id'];
+  /*Anime.noNull(
+    this.id,
+    this.titles,
+    this.descriptions,
+    this.startDate,
+    this.endDate,
+    this.seasonPeriod,
+    this.seasonYear,
+    this.numEpisodes,
+    this.coverImageUrl,
+    this.bannerImage,
+    this.genres,
+    this.numSeasons,
+    this.score,
+  ) : ;*/
 }
