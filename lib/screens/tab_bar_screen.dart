@@ -13,17 +13,15 @@ class TabBarScreen extends StatefulWidget {
 }
 
 class _TabBarScreenState extends State<TabBarScreen> {
-  List<Map<String, Object>>? _pages;
-
   @override
-  void initState() {
-    super.initState();
-    _pages = [
-      {'page': const LibraryScreen(), 'title': 'Biblioteca'},
-      {'page': const HomeScreen(), 'title': 'Recientes'},
-      {'page': const FavoritesScreen(), 'title': 'Favoritos'},
-    ];
+  void dispose() {
+    super.dispose();
+    controlPage.dispose();
   }
+
+  final controlPage = PageController(
+    initialPage: 1,
+  );
 
   int _selectedPageIndex = 1;
 
@@ -35,11 +33,28 @@ class _TabBarScreenState extends State<TabBarScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final pageViewTab = PageView(
+      controller: controlPage,
+      scrollDirection: Axis.horizontal,
+      onPageChanged: _selectPage,
+      children: const [
+        LibraryScreen(),
+        HomeScreen(),
+        FavoritesScreen(),
+      ],
+    );
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
-      body: (_pages![_selectedPageIndex]['page']) as Widget,
+      body: pageViewTab /*(_pages![_selectedPageIndex]['page']) as Widget*/,
       bottomNavigationBar: BottomNavigationBar(
-        onTap: _selectPage,
+        onTap: (index) {
+          controlPage.animateToPage(
+            index,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.ease,
+          );
+        },
         backgroundColor: Theme.of(context).colorScheme.primary,
         unselectedItemColor: Colors.white,
         selectedItemColor: Theme.of(context).colorScheme.secondary,

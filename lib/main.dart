@@ -19,10 +19,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        scaffoldBackgroundColor: Colors.purple,
         appBarTheme: const AppBarTheme(
           elevation: 0.0,
-          backgroundColor: Colors.transparent,
-          foregroundColor: Colors.black,
+          backgroundColor: Colors.purple,
+          //foregroundColor: Colors.transparent,
         ),
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: Colors.deepPurple,

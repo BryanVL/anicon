@@ -1,4 +1,4 @@
-import 'package:anicon/widgets/anime_grid.dart';
+import 'package:anicon/widgets/anime_grid_sliver.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -11,49 +11,46 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen>
-    with SingleTickerProviderStateMixin {
-  late final TabController _tabController;
+    with AutomaticKeepAliveClientMixin {
+  //double offSet = 0;
+  ScrollController controlScroll =
+      ScrollController(initialScrollOffset: 0, keepScrollOffset: true);
   @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+  void dispose() {
+    super.dispose();
+    controlScroll.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+    /*ScrollController controlScroll =
+        ScrollController(initialScrollOffset: offSet, keepScrollOffset: true);*/
+
+    /*controlScroll.addListener(() {
+      setState(() {
+        offSet = controlScroll.offset;
+      });
+    });*/
+
     return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              title: const Text('Anicon'),
-              pinned: true,
-              floating: true,
-              forceElevated: innerBoxIsScrolled,
-            ),
-          ];
-        },
-        body: const AnimeGrid(),
+      body: CustomScrollView(
+        controller: controlScroll,
+        slivers: const <Widget>[
+          SliverAppBar(
+            //backgroundColor: Colors.white,
+            //foregroundColor: Colors.white,
+            pinned: false,
+            snap: false,
+            floating: true,
+            title: Text("Anicon"),
+          ),
+          AnimeGridSliver(),
+        ],
       ),
     );
-
-    /* @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      appBar: AppBar(
-        title: const Text("Anicon"),
-      ),
-      body: const AnimeGrid(),
-    );*/
-
-    /*Container(
-            decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('lib/assets/a.png'),
-                repeat: ImageRepeat.repeat),
-            ),
-            child: const AnimeGrid());
-    );*/
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
