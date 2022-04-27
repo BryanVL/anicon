@@ -20,17 +20,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.purple,
+        textTheme: Typography.whiteRedmond,
+        dividerColor: Colors.white70,
+        scaffoldBackgroundColor: const Color.fromARGB(255, 105, 54, 114),
         appBarTheme: const AppBarTheme(
           elevation: 0.0,
-          backgroundColor: Colors.purple,
-          //foregroundColor: Colors.transparent,
+          backgroundColor: Color.fromARGB(255, 105, 54, 114),
+          //foregroundColor: Color.fromARGB(255, 105, 54, 114),
         ),
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: Colors.deepPurple,
-          backgroundColor: Colors.purple,
+          backgroundColor: const Color.fromARGB(255, 105, 54, 114),
           accentColor: Colors.deepOrange,
-        ).copyWith(secondary: Colors.amberAccent),
+        ).copyWith(
+          secondary: Colors.amberAccent,
+        ),
       ),
       home: const TabBarScreen(),
       routes: {
