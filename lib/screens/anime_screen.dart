@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -43,12 +44,29 @@ class AnimeScreen extends ConsumerWidget {
                 collapsedHeight: 60,
                 flexibleSpace: FlexibleSpaceBar(
                   title: Text(anime.titles['en'] ?? ""),
-                  background: Image.network(
+                  background: CachedNetworkImage(
+                    imageUrl: anime.bannerImage != null
+                        ? anime.bannerImage!
+                        : "https://s4.anilist.co/file/anilistcdn/media/anime/banner/138424-DGPPFxUinNmt.jpg",
+                    fit: BoxFit.cover,
+                    height: 300,
+                    placeholder: (context, url) => SizedBox(
+                      height: 725,
+                      width: 100,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: const [
+                          CircularProgressIndicator(color: Colors.black),
+                        ],
+                      ),
+                    ),
+                  ), /*Image.network(
                     anime.bannerImage != null
                         ? anime.bannerImage!
                         : "https://s4.anilist.co/file/anilistcdn/media/anime/banner/138424-DGPPFxUinNmt.jpg",
                     fit: BoxFit.cover,
-                  ),
+                  ),*/
                 ),
                 //title: Text(anime.titles['en'] ?? ""),
               ),

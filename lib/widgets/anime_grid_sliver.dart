@@ -22,6 +22,7 @@ class AnimeGridSliver extends ConsumerWidget {
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int i) {
                 return AnimeItem(
+                  //key: animes[i].id,
                   id: animes[i].id,
                   imageCoverUrl: animes[i].coverImageUrl,
                   title: animes[i].titles,

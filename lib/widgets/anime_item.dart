@@ -1,8 +1,9 @@
 import 'package:anicon/screens/anime_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 //this widget creates the "boxes" of the initial page
-class AnimeItem extends StatelessWidget {
+class AnimeItem extends StatefulWidget {
   final int id;
   final String imageCoverUrl;
   final Map<String, dynamic> title;
@@ -15,9 +16,16 @@ class AnimeItem extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<AnimeItem> createState() => _AnimeItemState();
+}
+
+class _AnimeItemState extends State<AnimeItem> {
+  bool favorite = false;
+  @override
   Widget build(BuildContext context) {
-    final String titulo =
-        title['en'] != null ? title['en']! : 'No english title found';
+    final String titulo = widget.title['en'] != null
+        ? widget.title['en']!
+        : 'No english title found';
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -27,12 +35,44 @@ class AnimeItem extends StatelessWidget {
           onTap: () {
             Navigator.of(context).pushNamed(
               AnimeScreen.kRouteName,
-              arguments: id,
+              arguments: widget.id,
             );
           },
           child: Column(
             children: [
-              Image.network(imageCoverUrl, fit: BoxFit.fitHeight, height: 300),
+              Stack(
+                alignment: Alignment.bottomRight,
+                children: [
+                  CachedNetworkImage(
+                    imageUrl: widget.imageCoverUrl,
+                    fit: BoxFit.fitHeight,
+                    height: 300,
+                    placeholder: (context, url) => SizedBox(
+                      height: 725,
+                      width: 100,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: const [
+                          CircularProgressIndicator(color: Colors.black),
+                        ],
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      favorite ? Icons.star : Icons.star_border_outlined,
+                      color: Theme.of(context).colorScheme.secondary,
+                      size: 35,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        favorite = !favorite;
+                      });
+                    },
+                  ),
+                ],
+              ),
               Container(
                 width: 200,
                 height: 40,
