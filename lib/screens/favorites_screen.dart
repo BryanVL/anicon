@@ -9,6 +9,7 @@ class FavoritesScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Favoritos"),
       ),
+      //DO FAVOURITES USING SHARED_PREFERENCES AND RIVERPOD. SAVE A LIST OF IDs AND IF IT IS THERE THEN IT IS A FAVOURITE
       body: const Text("Esta es la ventana de favoritos"),
     );
   }

@@ -36,21 +36,30 @@ class _HomeScreenState extends State<HomeScreen>
     return Scaffold(
       body: CustomScrollView(
         controller: controlScroll,
-        slivers: const <Widget>[
+        slivers: <Widget>[
           SliverAppBar(
             //backgroundColor: Colors.white,
             //foregroundColor: Colors.white,
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 16),
+                child: IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: () {},
+                ),
+              ),
+            ],
             pinned: false,
             snap: false,
             floating: true,
-            title: Text("Anicon"),
-            shape: RoundedRectangleBorder(
+            title: const Text("Anicon"),
+            shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(
                 bottom: Radius.circular(20),
               ),
             ),
           ),
-          AnimeGridSliver(),
+          const AnimeGridSliver(),
         ],
       ),
     );

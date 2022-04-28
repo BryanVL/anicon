@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class AnimeItem extends StatefulWidget {
   final int id;
   final String imageCoverUrl;
-  final Map<String, dynamic> title;
+  final Map<String, String?> title;
 
   const AnimeItem({
     Key? key,
@@ -46,7 +46,7 @@ class _AnimeItemState extends State<AnimeItem> {
                   CachedNetworkImage(
                     imageUrl: widget.imageCoverUrl,
                     fit: BoxFit.fitHeight,
-                    height: 300,
+                    height: 280,
                     placeholder: (context, url) => SizedBox(
                       height: 725,
                       width: 100,
