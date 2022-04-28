@@ -44,6 +44,11 @@ class _HomeScreenState extends State<HomeScreen>
             snap: false,
             floating: true,
             title: Text("Anicon"),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(20),
+              ),
+            ),
           ),
           AnimeGridSliver(),
         ],

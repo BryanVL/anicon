@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/anime.dart';
 import '../providers/animes_provider.dart';
+import 'package:intl/intl.dart';
 
 class AnimeScreen extends ConsumerWidget {
   const AnimeScreen({Key? key}) : super(key: key);
@@ -12,17 +13,26 @@ class AnimeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     //Id of anime that is needed to create the animeViewItem
     final int id = ModalRoute.of(context)!.settings.arguments as int;
+    //String backColor = "#693672";
     AsyncValue<List<Anime>> animes = ref.watch(animesProvider);
 
-    String generos = "";
+    final backColor = animes.whenData(
+      (List<Anime> data) {
+        return data.firstWhere((element) => element.id == id).coverColor;
+      },
+    ).value;
 
     return Scaffold(
+      backgroundColor: backColor == null
+          ? const Color.fromARGB(255, 105, 54, 114)
+          : Color(
+              int.parse(
+                backColor.replaceAll('#', '0xff'),
+              ),
+            ),
       body: animes.when(
         data: (List<Anime> data) {
           final Anime anime = data.firstWhere((element) => element.id == id);
-          for (var element in anime.genres) {
-            generos = generos + "$element, ";
-          }
           return CustomScrollView(
             slivers: <Widget>[
               SliverAppBar(
@@ -33,17 +43,11 @@ class AnimeScreen extends ConsumerWidget {
                 collapsedHeight: 60,
                 flexibleSpace: FlexibleSpaceBar(
                   title: Text(anime.titles['en'] ?? ""),
-                  background: ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
-                    ),
-                    child: Image.network(
-                      anime.bannerImage != null
-                          ? anime.bannerImage!
-                          : "https://s4.anilist.co/file/anilistcdn/media/anime/banner/138424-DGPPFxUinNmt.jpg",
-                      fit: BoxFit.cover,
-                    ),
+                  background: Image.network(
+                    anime.bannerImage != null
+                        ? anime.bannerImage!
+                        : "https://s4.anilist.co/file/anilistcdn/media/anime/banner/138424-DGPPFxUinNmt.jpg",
+                    fit: BoxFit.cover,
                   ),
                 ),
                 //title: Text(anime.titles['en'] ?? ""),
@@ -64,12 +68,13 @@ class AnimeScreen extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(
-                          width: 300,
-                          child: Divider(
-                            height: 20,
-                            thickness: 1,
-                            //color: Colors.black,
-                          )),
+                        width: 300,
+                        child: Divider(
+                          height: 20,
+                          thickness: 1,
+                          //color: Colors.black,
+                        ),
+                      ),
                       Container(
                         margin: const EdgeInsets.symmetric(vertical: 20),
                         height: 25,
@@ -117,7 +122,7 @@ class AnimeScreen extends ConsumerWidget {
                                     //height: 40,
                                     width: 300,
                                     child: Text(
-                                      "$e",
+                                      Bidi.stripHtmlIfNeeded("$e"),
                                       textAlign: TextAlign.left,
                                       style:
                                           const TextStyle(color: Colors.grey),
@@ -193,8 +198,10 @@ class AnimeScreen extends ConsumerWidget {
                                             color: Colors.white70),
                                       ),
                                       Text(
-                                        generos.substring(
-                                            0, generos.length - 2),
+                                        /*generos.substring(
+                                            0, generos.length - 2)*/
+                                        anime.genres.toString().substring(1,
+                                            anime.genres.toString().length - 1),
                                         style:
                                             const TextStyle(color: Colors.grey),
                                         textAlign: TextAlign.justify,

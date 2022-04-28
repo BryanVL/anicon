@@ -37,8 +37,9 @@ final animesProvider = FutureProvider<List<Anime>>(
             anime['season_year'],
             anime['episodes_count'],
             anime['cover_image'],
+            anime['cover_color'],
             anime['banner_image'],
-            anime['genres'],
+            List<String>.from(anime['genres']),
             anime['sagas'] != null
                 ? (anime['sagas'] as List<dynamic>).length
                 : 1,

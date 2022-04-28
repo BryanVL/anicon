@@ -8,8 +8,9 @@ class Anime {
   final int seasonYear;
   final int numEpisodes;
   final String coverImageUrl;
+  final String? coverColor;
   final String? bannerImage;
-  final List<dynamic> genres;
+  final List<String> genres;
   final int numSeasons;
   final int score;
 
@@ -23,6 +24,7 @@ class Anime {
     this.seasonYear,
     this.numEpisodes,
     this.coverImageUrl,
+    this.coverColor,
     this.bannerImage,
     this.genres,
     this.numSeasons,
