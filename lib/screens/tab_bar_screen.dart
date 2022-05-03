@@ -70,7 +70,7 @@ class _TabBarScreenState extends State<TabBarScreen> {
             label: 'Recientes',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.star),
+            icon: Icon(Icons.favorite),
             label: 'Favoritos',
           ),
         ],

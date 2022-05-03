@@ -38,8 +38,6 @@ class _HomeScreenState extends State<HomeScreen>
         controller: controlScroll,
         slivers: <Widget>[
           SliverAppBar(
-            //backgroundColor: Colors.white,
-            //foregroundColor: Colors.white,
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 16),

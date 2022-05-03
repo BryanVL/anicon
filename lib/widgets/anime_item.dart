@@ -1,31 +1,31 @@
 import 'package:anicon/screens/anime_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../providers/shared_preferences_provider.dart';
 
 //this widget creates the "boxes" of the initial page
-class AnimeItem extends StatefulWidget {
+class AnimeItem extends ConsumerWidget {
   final int id;
   final String imageCoverUrl;
   final Map<String, String?> title;
+  bool favorite;
 
-  const AnimeItem({
+  AnimeItem({
     Key? key,
     required this.id,
     required this.imageCoverUrl,
     required this.title,
+    this.favorite = false,
   }) : super(key: key);
 
   @override
-  State<AnimeItem> createState() => _AnimeItemState();
-}
-
-class _AnimeItemState extends State<AnimeItem> {
-  bool favorite = false;
-  @override
-  Widget build(BuildContext context) {
-    final String titulo = widget.title['en'] != null
-        ? widget.title['en']!
-        : 'No english title found';
+  Widget build(BuildContext context, WidgetRef ref) {
+    final favoriteIds = ref.watch(FavoriteIds.provider);
+    favorite = favoriteIds.contains('$id');
+    final String titulo =
+        title['en'] != null ? title['en']! : 'No english title found';
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -35,7 +35,7 @@ class _AnimeItemState extends State<AnimeItem> {
           onTap: () {
             Navigator.of(context).pushNamed(
               AnimeScreen.kRouteName,
-              arguments: widget.id,
+              arguments: id,
             );
           },
           child: Column(
@@ -44,7 +44,7 @@ class _AnimeItemState extends State<AnimeItem> {
                 alignment: Alignment.bottomRight,
                 children: [
                   CachedNetworkImage(
-                    imageUrl: widget.imageCoverUrl,
+                    imageUrl: imageCoverUrl,
                     fit: BoxFit.fitHeight,
                     height: 280,
                     placeholder: (context, url) => SizedBox(
@@ -61,15 +61,15 @@ class _AnimeItemState extends State<AnimeItem> {
                   ),
                   IconButton(
                     icon: Icon(
-                      favorite ? Icons.star : Icons.star_border_outlined,
-                      color: Theme.of(context).colorScheme.secondary,
+                      favorite
+                          ? Icons.favorite
+                          : Icons.favorite_border_outlined,
+                      color: Colors.red,
                       size: 35,
                     ),
-                    onPressed: () {
-                      setState(() {
-                        favorite = !favorite;
-                      });
-                    },
+                    onPressed: () => ref
+                        .watch(FavoriteIds.provider.notifier)
+                        .toggle(id.toString()),
                   ),
                 ],
               ),
