@@ -18,7 +18,7 @@ final animesProvider = FutureProvider<List<Anime>>(
         '/v1/anime',
         {
           'year': '2022',
-          'format': '0',
+          'formats': '0',
           'page': '$currentPage',
         },
       );

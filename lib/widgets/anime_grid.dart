@@ -25,7 +25,7 @@ class AnimeGrid extends ConsumerWidget {
               id: animes[i].id,
               imageCoverUrl: animes[i].coverImageUrl,
               title: animes[i].titles,
-            ); //Placeholder
+            );
           },
         );
       },
