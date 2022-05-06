@@ -17,20 +17,20 @@ class AnimeScreen extends ConsumerWidget {
     //String backColor = "#693672";
     AsyncValue<List<Anime>> animes = ref.watch(animesProvider);
 
-    final backColor = animes.whenData(
+    /*final backColor = animes.whenData(
       (List<Anime> data) {
         return data.firstWhere((element) => element.id == id).coverColor;
       },
-    ).value;
+    ).value;*/
 
     return Scaffold(
-      backgroundColor: backColor == null
+      /*backgroundColor: backColor == null
           ? const Color.fromARGB(255, 105, 54, 114)
           : Color(
               int.parse(
                 backColor.replaceAll('#', '0xff'),
               ),
-            ),
+            ),*/
       body: animes.when(
         data: (List<Anime> data) {
           final Anime anime = data.firstWhere((element) => element.id == id);

@@ -18,21 +18,22 @@ class AnimeGridSliver extends ConsumerWidget {
     return animes.when(
       data: (animes) {
         return SliverGrid(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 9 / 16,
-            ),
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int i) {
-                return AnimeItem(
-                  //key: animes[i].id,
-                  id: animes[i].id,
-                  imageCoverUrl: animes[i].coverImageUrl,
-                  title: animes[i].titles,
-                );
-              },
-              childCount: animes.length,
-            ));
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 9 / 16,
+          ),
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int i) {
+              return AnimeItem(
+                //key: animes[i].id,
+                id: animes[i].id,
+                imageCoverUrl: animes[i].coverImageUrl,
+                title: animes[i].titles,
+              );
+            },
+            childCount: animes.length,
+          ),
+        );
       },
       //HAVE TO PUT AN EMPTY SLIVER FOR THE APP TO NOT EXPLODE WITHOUT INTERNET
       error: (err, stack) => SliverToBoxAdapter(

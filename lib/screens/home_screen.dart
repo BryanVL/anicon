@@ -1,6 +1,8 @@
 import 'package:anicon/widgets/anime_grid_sliver.dart';
 import 'package:flutter/material.dart';
 
+import '../models/search_button.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -15,6 +17,7 @@ class _HomeScreenState extends State<HomeScreen>
   //double offSet = 0;
   ScrollController controlScroll =
       ScrollController(initialScrollOffset: 0, keepScrollOffset: true);
+
   @override
   void dispose() {
     super.dispose();
@@ -43,7 +46,9 @@ class _HomeScreenState extends State<HomeScreen>
                 padding: const EdgeInsets.only(right: 16),
                 child: IconButton(
                   icon: const Icon(Icons.search),
-                  onPressed: () {},
+                  onPressed: () {
+                    showSearch(context: context, delegate: SearchAnime(false));
+                  },
                 ),
               ),
             ],

@@ -24,8 +24,7 @@ class AnimeItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final favoriteIds = ref.watch(FavoriteIds.provider);
     favorite = favoriteIds.contains('$id');
-    final String titulo =
-        title['en'] != null ? title['en']! : 'No english title found';
+    final String titulo = title['rj'] != null ? title['rj']! : 'No title found';
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
