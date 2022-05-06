@@ -1,7 +1,6 @@
 import 'package:anicon/widgets/anime_grid_sliver.dart';
+import 'package:anicon/widgets/my_appbar.dart';
 import 'package:flutter/material.dart';
-
-import '../models/search_button.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -15,13 +14,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen>
     with AutomaticKeepAliveClientMixin {
   //double offSet = 0;
-  ScrollController controlScroll =
-      ScrollController(initialScrollOffset: 0, keepScrollOffset: true);
+  /*ScrollController controlScroll =
+      ScrollController(initialScrollOffset: 0, keepScrollOffset: true);*/
 
   @override
   void dispose() {
     super.dispose();
-    controlScroll.dispose();
+    //controlScroll.dispose();
   }
 
   @override
@@ -36,33 +35,12 @@ class _HomeScreenState extends State<HomeScreen>
       });
     });*/
 
-    return Scaffold(
+    return const Scaffold(
       body: CustomScrollView(
-        controller: controlScroll,
+        //controller: controlScroll,
         slivers: <Widget>[
-          SliverAppBar(
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 16),
-                child: IconButton(
-                  icon: const Icon(Icons.search),
-                  onPressed: () {
-                    showSearch(context: context, delegate: SearchAnime(false));
-                  },
-                ),
-              ),
-            ],
-            pinned: false,
-            snap: false,
-            floating: true,
-            title: const Text("Anicon"),
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(20),
-              ),
-            ),
-          ),
-          const AnimeGridSliver(),
+          MyAppBar(),
+          AnimeGridSliver(),
         ],
       ),
     );

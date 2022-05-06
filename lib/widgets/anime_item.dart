@@ -69,6 +69,8 @@ class AnimeItem extends ConsumerWidget {
                     onPressed: () => ref
                         .watch(FavoriteIds.provider.notifier)
                         .toggle(id.toString()),
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                   ),
                 ],
               ),
