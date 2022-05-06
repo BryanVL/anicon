@@ -43,7 +43,7 @@ class AnimeScreen extends ConsumerWidget {
                 expandedHeight: 180.0,
                 collapsedHeight: 60,
                 flexibleSpace: FlexibleSpaceBar(
-                  title: Text(anime.titles['en'] ?? ""),
+                  title: Text(anime.titles['rj'] ?? ""),
                   background: CachedNetworkImage(
                     imageUrl: anime.bannerImage != null
                         ? anime.bannerImage!

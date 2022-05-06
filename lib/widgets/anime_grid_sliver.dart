@@ -11,9 +11,6 @@ class AnimeGridSliver extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     AsyncValue<List<Anime>> animes = ref.watch(animesProvider);
-    /*AsyncValue<SharedPreferences> favourites =
-        ref.watch(sharedPreferencesProvider);*/
-    /*final favoriteIds = ref.watch(FavoriteIds.provider);*/
 
     return animes.when(
       data: (animes) {

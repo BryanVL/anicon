@@ -4,7 +4,9 @@ import '../models/search_button.dart';
 
 class MyAppBar extends StatelessWidget {
   final bool fav;
-  const MyAppBar({Key? key, this.fav = false}) : super(key: key);
+  final String title;
+  const MyAppBar({Key? key, this.fav = false, this.title = 'Anicon'})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class MyAppBar extends StatelessWidget {
       pinned: false,
       snap: false,
       floating: true,
-      title: const Text("Anicon"),
+      title: Text(title),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           bottom: Radius.circular(20),

@@ -2,7 +2,7 @@
     package="com.example.anicon">
    <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="anicon"
+        android:label="Anicon"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

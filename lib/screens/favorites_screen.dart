@@ -29,6 +29,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
         slivers: <Widget>[
           MyAppBar(
             fav: true,
+            title: 'Favoritos',
           ),
           //Here goes the body of the page
           FavouriteAnimesList(),
