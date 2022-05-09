@@ -7,26 +7,27 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/shared_preferences_provider.dart';
 
 //this class is a grid of animeItems with slivers
-class FavouriteAnimesList extends ConsumerWidget {
-  const FavouriteAnimesList({Key? key}) : super(key: key);
+class PendingAnimesList extends ConsumerWidget {
+  const PendingAnimesList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     AsyncValue<List<Anime>> animes = ref.watch(animesProvider);
 
-    final favoriteIds = ref.watch(FavoriteIds.provider);
+    //final favoriteIds = ref.watch(FavoriteIds.provider);
+    final pendingIds = ref.watch(PendingIds.provider);
 
     return animes.when(
       data: (animes) {
         final List<AnimeItem> items = [];
         for (int i = 0; i < animes.length; i++) {
-          if (favoriteIds.contains('${animes[i].id}')) {
+          if (pendingIds.contains('${animes[i].id}')) {
             items.add(
               AnimeItem(
                 id: animes[i].id,
                 imageCoverUrl: animes[i].coverImageUrl,
                 title: animes[i].titles,
-                screenIsFavorite: true,
+                screenIsPending: true,
               ),
             );
           }

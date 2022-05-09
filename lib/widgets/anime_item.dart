@@ -6,30 +6,39 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/shared_preferences_provider.dart';
 
 //this widget creates the "boxes" of the initial page
+//IDEA: SHOW IF THE ITEM IS AN ANIME, OVA, MOVIE, ETC...
 class AnimeItem extends ConsumerWidget {
   final int id;
   final String imageCoverUrl;
   final Map<String, String?> title;
   bool favorite;
+  bool pending;
+  final bool screenIsPending;
+  final bool screenIsFavorite;
 
   AnimeItem({
     Key? key,
     required this.id,
     required this.imageCoverUrl,
     required this.title,
+    this.screenIsPending = false,
+    this.screenIsFavorite = false,
     this.favorite = false,
+    this.pending = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final favoriteIds = ref.watch(FavoriteIds.provider);
     favorite = favoriteIds.contains('$id');
+    final pendingIds = ref.watch(PendingIds.provider);
+    pending = pendingIds.contains('$id');
     final String titulo = title['rj'] != null ? title['rj']! : 'No title found';
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(15),
         child: GestureDetector(
           onTap: () {
             Navigator.of(context).pushNamed(
@@ -51,26 +60,62 @@ class AnimeItem extends ConsumerWidget {
                       width: 100,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: const [
                           CircularProgressIndicator(color: Colors.black),
                         ],
                       ),
                     ),
                   ),
-                  IconButton(
-                    icon: Icon(
-                      favorite
-                          ? Icons.favorite
-                          : Icons.favorite_border_outlined,
-                      color: Colors.red,
-                      size: 35,
+                  Container(
+                    height: 35,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10)),
+                      color: Colors.black38,
                     ),
-                    onPressed: () => ref
-                        .watch(FavoriteIds.provider.notifier)
-                        .toggle(id.toString()),
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        screenIsPending
+                            ? IconButton(
+                                icon: Icon(
+                                  pending
+                                      ? Icons.library_add_check
+                                      : Icons.library_add,
+                                  color: pending
+                                      ? Colors.green
+                                      : Colors
+                                          .amberAccent, //Theme.of(context).colorScheme.secondary,
+                                  size: 24,
+                                ),
+                                onPressed: () => ref
+                                    .watch(PendingIds.provider.notifier)
+                                    .toggle(id.toString()),
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                              )
+                            : const SizedBox(),
+                        screenIsFavorite
+                            ? IconButton(
+                                icon: Icon(
+                                  favorite
+                                      ? Icons.favorite
+                                      : Icons.favorite_border_outlined,
+                                  color: Colors.red,
+                                  size: 24,
+                                ),
+                                onPressed: () => ref
+                                    .watch(FavoriteIds.provider.notifier)
+                                    .toggle(id.toString()),
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                              )
+                            : const SizedBox(),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -83,12 +128,13 @@ class AnimeItem extends ConsumerWidget {
                       bottomLeft: Radius.circular(10),
                       bottomRight: Radius.circular(10)),
                 ),
-                margin: const EdgeInsets.only(top: 2),
+                //margin: const EdgeInsets.only(top: 2),
+                alignment: Alignment.center,
                 child: Text(
                   titulo,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.left,
                   style: const TextStyle(
                     fontSize: 16,
                     color: Colors.white70,

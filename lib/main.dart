@@ -19,7 +19,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Anicon',
-      theme: ThemeData(
+      theme: ThemeData.dark(),
+      /*ThemeData(
         textTheme: Typography.whiteRedmond,
         dividerColor: Colors.white70,
         scaffoldBackgroundColor: const Color.fromARGB(255, 105, 54, 114),
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         ).copyWith(
           secondary: Colors.amberAccent,
         ),
-      ),
+      ),*/
       home: const TabBarScreen(),
       routes: {
         HomeScreen.kRouteName: (ctx) => const HomeScreen(),

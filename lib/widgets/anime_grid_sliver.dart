@@ -26,6 +26,8 @@ class AnimeGridSliver extends ConsumerWidget {
                 id: animes[i].id,
                 imageCoverUrl: animes[i].coverImageUrl,
                 title: animes[i].titles,
+                screenIsPending: true,
+                screenIsFavorite: true,
               );
             },
             childCount: animes.length,

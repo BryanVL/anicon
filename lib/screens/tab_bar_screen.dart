@@ -55,9 +55,10 @@ class _TabBarScreenState extends State<TabBarScreen> {
             curve: Curves.ease,
           );
         },
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        //backgroundColor: Theme.of(context).colorScheme.primary,
         unselectedItemColor: Colors.white,
-        selectedItemColor: Theme.of(context).colorScheme.secondary,
+        selectedItemColor:
+            Colors.amberAccent, //Theme.of(context).colorScheme.secondary,
         currentIndex: _selectedPageIndex,
         selectedFontSize: 16,
         items: const [

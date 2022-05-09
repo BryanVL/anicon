@@ -11,14 +11,14 @@ class FavoritesScreen extends StatefulWidget {
 
 class _FavoritesScreenState extends State<FavoritesScreen>
     with AutomaticKeepAliveClientMixin {
-  ScrollController controlScroll =
-      ScrollController(initialScrollOffset: 0, keepScrollOffset: true);
+  /*ScrollController controlScroll =
+      ScrollController(initialScrollOffset: 0, keepScrollOffset: true);*/
 
-  @override
+  /*@override
   void dispose() {
     super.dispose();
     controlScroll.dispose();
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {

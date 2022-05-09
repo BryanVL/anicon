@@ -30,3 +30,28 @@ class FavoriteIds extends StateNotifier<List<String>> {
     pref!.setStringList("ids", state);
   }
 }
+
+class PendingIds extends StateNotifier<List<String>> {
+  final SharedPreferences? pref;
+  PendingIds(this.pref) : super(pref?.getStringList("idsPending") ?? []);
+
+  static final provider = StateNotifierProvider<PendingIds, List<String>>(
+    (ref) {
+      final pref = ref.watch(sharedPreferencesProvider).maybeWhen(
+            data: (value) => value,
+            orElse: () => null,
+          );
+      return PendingIds(pref);
+    },
+  );
+
+  void toggle(String pendingIds) {
+    if (state.contains(pendingIds)) {
+      state = state.where((id) => id != pendingIds).toList();
+    } else {
+      state = [...state, pendingIds];
+    }
+    // Throw here since for some reason SharedPreferences could not be retrieved
+    pref!.setStringList("idsPending", state);
+  }
+}

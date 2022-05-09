@@ -37,38 +37,39 @@ class AnimeScreen extends ConsumerWidget {
           return CustomScrollView(
             slivers: <Widget>[
               SliverAppBar(
+                backgroundColor: Theme.of(context).canvasColor,
                 pinned: true,
                 snap: false,
-                floating: true,
+                floating: false,
                 expandedHeight: 180.0,
                 collapsedHeight: 60,
                 flexibleSpace: FlexibleSpaceBar(
-                  title: Text(anime.titles['rj'] ?? ""),
-                  background: CachedNetworkImage(
-                    imageUrl: anime.bannerImage != null
-                        ? anime.bannerImage!
-                        : "https://s4.anilist.co/file/anilistcdn/media/anime/banner/138424-DGPPFxUinNmt.jpg",
-                    fit: BoxFit.cover,
-                    height: 300,
-                    placeholder: (context, url) => SizedBox(
-                      height: 725,
-                      width: 100,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: const [
-                          CircularProgressIndicator(color: Colors.black),
-                        ],
-                      ),
-                    ),
-                  ), /*Image.network(
-                    anime.bannerImage != null
-                        ? anime.bannerImage!
-                        : "https://s4.anilist.co/file/anilistcdn/media/anime/banner/138424-DGPPFxUinNmt.jpg",
-                    fit: BoxFit.cover,
-                  ),*/
+                  expandedTitleScale: 1.75,
+                  centerTitle: true,
+                  title: Text(
+                    anime.titles['rj'] ?? "",
+                  ),
+                  background: anime.bannerImage != null
+                      ? CachedNetworkImage(
+                          imageUrl: anime.bannerImage!,
+                          color: Colors.black38,
+                          colorBlendMode: BlendMode.darken,
+                          fit: BoxFit.cover,
+                          height: 300,
+                          placeholder: (context, url) => SizedBox(
+                            height: 725,
+                            width: 100,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: const [
+                                CircularProgressIndicator(color: Colors.black),
+                              ],
+                            ),
+                          ),
+                        )
+                      : Container(color: Theme.of(context).canvasColor),
                 ),
-                //title: Text(anime.titles['en'] ?? ""),
               ),
               SliverToBoxAdapter(
                 child: Container(
@@ -106,18 +107,22 @@ class AnimeScreen extends ConsumerWidget {
                         alignment: Alignment.center,
                         child: Column(
                           children: anime.titles.values
-                              .map((e) => Container(
-                                    margin:
-                                        const EdgeInsets.symmetric(vertical: 1),
-                                    height: 40,
-                                    width: 300,
-                                    child: Text(
-                                      "$e",
-                                      textAlign: TextAlign.left,
-                                      style:
-                                          const TextStyle(color: Colors.grey),
-                                    ),
-                                  ))
+                              .map(
+                                (e) => Container(
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 1),
+                                  height: e != null ? 40 : 0,
+                                  width: 300,
+                                  child: e != null
+                                      ? Text(
+                                          e,
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                              color: Colors.grey),
+                                        )
+                                      : null,
+                                ),
+                              )
                               .toList(),
                         ),
                       ),
@@ -134,18 +139,21 @@ class AnimeScreen extends ConsumerWidget {
                         alignment: Alignment.center,
                         child: Column(
                           children: anime.descriptions.values
-                              .map((e) => Container(
-                                    margin: const EdgeInsets.symmetric(
-                                        vertical: 10),
-                                    //height: 40,
-                                    width: 300,
-                                    child: Text(
-                                      Bidi.stripHtmlIfNeeded("$e"),
-                                      textAlign: TextAlign.left,
-                                      style:
-                                          const TextStyle(color: Colors.grey),
-                                    ),
-                                  ))
+                              .map(
+                                (e) => Container(
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  width: 300,
+                                  child: e != null
+                                      ? Text(
+                                          Bidi.stripHtmlIfNeeded(e),
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                              color: Colors.grey),
+                                        )
+                                      : null,
+                                ),
+                              )
                               .toList(),
                         ),
                       ),
@@ -194,12 +202,11 @@ class AnimeScreen extends ConsumerWidget {
                                     Text(
                                       "${anime.score}",
                                       textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .secondary,
-                                      ),
+                                      style: const TextStyle(
+                                          fontSize: 20,
+                                          color: Colors
+                                              .amberAccent //Theme.of(context).colorScheme.secondary,
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -242,12 +249,13 @@ class AnimeScreen extends ConsumerWidget {
                                         child: Text(
                                           "Episodios\n${anime.numEpisodes}",
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            color: Theme.of(context)
+                                          style: const TextStyle(
+                                              fontSize: 20,
+                                              color: Colors
+                                                  .amberAccent /*Theme.of(context)
                                                 .colorScheme
-                                                .secondary,
-                                          ),
+                                                .secondary,*/
+                                              ),
                                         ),
                                       ),
                                       Container(
@@ -256,12 +264,13 @@ class AnimeScreen extends ConsumerWidget {
                                         child: Text(
                                           "Temporadas\n${anime.numSeasons}",
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            color: Theme.of(context)
+                                          style: const TextStyle(
+                                              fontSize: 20,
+                                              color: Colors
+                                                  .amberAccent /*Theme.of(context)
                                                 .colorScheme
-                                                .secondary,
-                                          ),
+                                                .secondary,*/
+                                              ),
                                         ),
                                       ),
                                     ],

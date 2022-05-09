@@ -10,10 +10,12 @@ import '../providers/shared_preferences_provider.dart';
 class AnimeGrid extends ConsumerWidget {
   final String query;
   final bool fav;
+  final bool pending;
 
   const AnimeGrid(
     this.query,
-    this.fav, {
+    this.fav,
+    this.pending, {
     Key? key,
   }) : super(key: key);
 
@@ -36,6 +38,7 @@ class AnimeGrid extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     AsyncValue<List<Anime>> animes = ref.watch(animesProvider);
     final favoriteIds = ref.watch(FavoriteIds.provider);
+    final pendingIds = ref.watch(PendingIds.provider);
     return animes.when(
       data: (animes) {
         List<Anime> favoriteAnimes = [];
@@ -43,6 +46,13 @@ class AnimeGrid extends ConsumerWidget {
         if (fav) {
           for (int i = 0; i < animes.length; i++) {
             if (favoriteIds.contains('${animes[i].id}')) {
+              favoriteAnimes.add(animes[i]);
+            }
+          }
+          animesToBuild = filterAnime(favoriteAnimes);
+        } else if (pending) {
+          for (int i = 0; i < animes.length; i++) {
+            if (pendingIds.contains('${animes[i].id}')) {
               favoriteAnimes.add(animes[i]);
             }
           }
@@ -62,6 +72,8 @@ class AnimeGrid extends ConsumerWidget {
               id: animesToBuild[i].id,
               imageCoverUrl: animesToBuild[i].coverImageUrl,
               title: animesToBuild[i].titles,
+              screenIsFavorite: true,
+              screenIsPending: true,
             );
           },
         );

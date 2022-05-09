@@ -4,12 +4,16 @@ import '../widgets/anime_grid.dart';
 
 class SearchAnime extends SearchDelegate {
   final bool fav;
+  final bool pending;
 
-  SearchAnime(this.fav);
+  SearchAnime(this.fav, this.pending);
 
   @override
   ThemeData appBarTheme(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
+    final ThemeData theme = Theme.of(context).copyWith(
+      appBarTheme: AppBarTheme(backgroundColor: Theme.of(context).canvasColor),
+    );
+
     return theme;
   }
 
@@ -37,11 +41,11 @@ class SearchAnime extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return AnimeGrid(query.toUpperCase(), fav);
+    return AnimeGrid(query.toUpperCase(), fav, pending);
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return AnimeGrid(query.toUpperCase(), fav);
+    return AnimeGrid(query.toUpperCase(), fav, pending);
   }
 }
